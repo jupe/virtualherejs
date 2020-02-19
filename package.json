@@ -1,0 +1,52 @@
+{
+  "name": "virtualherejs",
+  "version": "0.1.0",
+  "description": "Virtualhere js wrapper",
+  "main": "index.js",
+  "bin": {
+    "vh": "src/cli.js"
+  },
+  "scripts": {
+    "test": "nyc mocha --recursive --exit --reporter mocha-junit-reporter --reporter-options mochaFile=junit/test-results.xml",
+    "coverage": "nyc report --reporter=text-lcov > coverage/lcov.info",
+    "lint": "eslint test src",
+    "lint-fix": "eslint --fix test src",
+    "postinstall": "node postinstall.js"
+  },
+  "keywords": [
+    "virtualhere",
+    "usbip",
+    "usb over ip"
+  ],
+  "author": "Jussi Vatjus-Anttila <jussiva@gmail.com>)",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.4",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^12.0.2",
+    "eslint-config-mocha": "0.0.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-chai-expect": "^1.2.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-mocha": "^4.10.1",
+    "eslint-plugin-mocha-only": "0.0.3",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "invariant": "^2.2.4",
+    "mocha": "^5.2.0",
+    "mocha-circleci-reporter": "0.0.3",
+    "nyc": "latest",
+    "sinon": "^6.3.5"
+  },
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "camelcase": "latest",
+    "debug": "^4.1.1",
+    "promise-retry": "^1.1.1",
+    "promise-socket": "^6.0.2",
+    "xml2js": "^0.4.22",
+    "yargs": "^15.1.0",
+    "lodash": "latest"
+  }
+}

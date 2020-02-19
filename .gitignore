@@ -102,3 +102,5 @@ dist
 
 # TernJS port file
 .tern-port
+junit/
+bin/win32/config.ini
