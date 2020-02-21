@@ -1,7 +1,7 @@
 {
   "name": "virtualherejs",
-  "version": "0.1.0",
-  "description": "Virtualhere js wrapper",
+  "version": "0.1.1",
+  "description": "Virtualhere interface",
   "main": "index.js",
   "bin": {
     "vh": "src/cli.js"
@@ -15,7 +15,8 @@
   },
   "keywords": [
     "virtualhere",
-    "usbip",
+    "usb/ip",
+    "usb",
     "usb over ip"
   ],
   "author": "Jussi Vatjus-Anttila <jussiva@gmail.com>)",
@@ -33,7 +34,6 @@
     "eslint-plugin-mocha-only": "0.0.3",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "invariant": "^2.2.4",
     "mocha": "^7.0.1",
     "mocha-circleci-reporter": "0.0.3",
     "nyc": "^15.0.0",
@@ -43,6 +43,7 @@
     "bluebird": "^3.7.2",
     "camelcase": "^5.3.1",
     "debug": "^4.1.1",
+    "invariant": "^2.2.4",
     "lodash": "^4.17.15",
     "promise-retry": "^1.1.1",
     "promise-socket": "^6.0.3",
