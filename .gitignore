@@ -104,3 +104,4 @@ dist
 .tern-port
 junit/
 bin/win32/config.ini
+.virtualhere.lock

@@ -7,17 +7,23 @@ const os = require('os');
 const files = {
     win32: {
         source: 'https://virtualhere.com/sites/default/files/usbclient/vhui64.exe',
-        target: 'bin/win32/vhui64.exe'
+        target: './bin/win32/vhui64.exe'
     },
     linux: {
         source: 'https://virtualhere.com/sites/default/files/usbclient/vhclientx86_64',
-        target: 'bin/linux/vhclientx86_64'
+        target: './bin/linux/vhclientx86_64'
     },
     darwin: {
         source: 'https://virtualhere.com/sites/default/files/usbclient/VirtualHere.dmg',
-        target: 'bin/darwin//VirtualHere.dmg'
+        target: './bin/darwin//VirtualHere.dmg'
     }
 };
+
+function createFolder(dest) {
+    const [_, bin, sub] = dest.split('/');
+    fs.mkdirSync(`./${bin}`);
+    fs.mkdirSync(`./${bin}/${sub}`);
+}
 
 const platform = os.platform();
 module.exports = files[platform];
@@ -28,6 +34,7 @@ function download(url, dest, cb) {
         cb();
         return;
     }
+    createFolder(dest);
     console.log(`Downloading file: ${url}`);
     console.log(`Storing file: ${dest}`);
     const file = fs.createWriteStream(dest);
