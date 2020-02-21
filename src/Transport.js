@@ -49,7 +49,7 @@ class Transport {
                     if (iteration > 0) {
                         socket.end();
                         await Transport._startService();
-                        debug(`Retrying connection`);
+                        debug('Retrying connection');
                         return this._connect(iteration - 1);
                     }
                 } else {

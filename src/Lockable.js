@@ -11,10 +11,10 @@ const VirtualHere = require('./Virtualhere');
 class Lockable {
     /**
      * Manage Lockable resources
-     * @param vhere{VirtualHere} VirtualHere instance
-     * @param lockFile{string} lock file
+     * @param {VirtualHere} vhere instance
+     * @param {string} lockFile lock file
      */
-    constructor(vhere, lockFile ) {
+    constructor(vhere, lockFile) {
         this._vh = vhere;
         this._lockFile = lockFile;
     }
@@ -39,7 +39,7 @@ class Lockable {
 
     /**
      * lock multiple devices based on requirements
-     * @param requirements{[object]} requirements as array
+     * @param {array} requirements requirements as array
      * @returns {Promise<[object]>} List of allocated devices
      */
     async lockAll(requirements) {
