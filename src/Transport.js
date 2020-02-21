@@ -66,6 +66,7 @@ class Transport {
             this._rxSocket = await createSocket(this._rxPipe);
         }
     }
+
     async _disconnect() {
         debug('disconnect');
         await this._txSocket.end();

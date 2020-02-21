@@ -35,15 +35,18 @@ class Virtualhere {
         const command = `MANUAL HUB ADD,${address}:${port}`;
         return this._transport.execute(command);
     }
+
     async removeHub(address, port = 7575) {
         const command = `MANUAL HUB REMOVE,${address}:${port}`;
         return this._transport.execute(command);
     }
+
     async listHub() {
         const command = 'MANUAL HUB LIST';
         const response = await this._transport.execute(command);
         return Parsers.parseHubListResponse(response);
     }
+
     async removeHubAll() {
         const command = 'MANUAL HUB REMOVE ALL';
         return this._transport.execute(command);
@@ -83,11 +86,11 @@ class Virtualhere {
     }
 
     _deviceMapper(deviceObj) {
-        let details = this._deviceMap.find(obj => obj.serial === deviceObj.serial);
+        let details = this._deviceMap.find((obj) => obj.serial === deviceObj.serial);
         if (details) {
             merge(deviceObj, details);
         }
-        details = this._deviceMap.find(obj => obj.name === deviceObj.name);
+        details = this._deviceMap.find((obj) => obj.name === deviceObj.name);
         if (details) {
             merge(deviceObj, details);
         }
@@ -109,4 +112,3 @@ class Virtualhere {
 }
 
 module.exports = Virtualhere;
-

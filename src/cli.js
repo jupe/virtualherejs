@@ -28,21 +28,20 @@ async function main() {
         .option('deviceMap', {
             type: 'string',
             nargs: 1,
-            coerce: arg => JSON.parse(fs.readFileSync(arg)),
+            coerce: (arg) => JSON.parse(fs.readFileSync(arg)),
             describe: 'device map file'
         })
-        .command('allocate', 'allocate devices', yarg =>
-            yarg.option('requirements', {
-                type: 'string',
-                required: true,
-                nargs: 1,
-                coerce: arg => parseRequirements(arg),
-                describe: 'requirements as JSON'
-            }))
-        .command('release', 'release allocated resources', yarg => yarg)
-        .usage('Usage example:\n' +
-            'vh allocate --hub vh-server-address --requirements type=phone\n' +
-            'vh release --hub vh-server-address\n')
+        .command('allocate', 'allocate devices', (yarg) => yarg.option('requirements', {
+            type: 'string',
+            required: true,
+            nargs: 1,
+            coerce: (arg) => parseRequirements(arg),
+            describe: 'requirements as JSON'
+        }))
+        .command('release', 'release allocated resources', (yarg) => yarg)
+        .usage('Usage example:\n'
+            + 'vh allocate --hub vh-server-address --requirements type=phone\n'
+            + 'vh release --hub vh-server-address\n')
         .strict()
         .help();
     let killing;

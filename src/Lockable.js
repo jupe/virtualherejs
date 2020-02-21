@@ -26,6 +26,7 @@ class Lockable {
         await this._vh.autoUseDevice(device.address);
         return device;
     }
+
     async _unlock({address, name}) {
         debug(`Release: ${name}`);
         await this._vh.stopUsingADevice(address);
@@ -44,11 +45,11 @@ class Lockable {
      */
     async lockAll(requirements) {
         const devices = await this._vh.listDevices();
-        requirements.map(obj => merge(obj, {inUseBy: undefined}));
-        debug(`devices: ${devices.map(obj => obj.name).join(', ')}`);
+        requirements.map((obj) => merge(obj, {inUseBy: undefined}));
+        debug(`devices: ${devices.map((obj) => obj.name).join(', ')}`);
         debug(`Requirements: ${JSON.stringify(requirements)}`);
-        const allocated = await Promise.mapSeries(requirements, req => this._lock(devices, req));
-        const names = allocated.map(obj => obj.name).join(', ');
+        const allocated = await Promise.mapSeries(requirements, (req) => this._lock(devices, req));
+        const names = allocated.map((obj) => obj.name).join(', ');
         debug(`Allocated: ${names}. lock file: ${this._lockFile}`);
         await fs.promises.writeFile(this._lockFile, JSON.stringify(allocated));
         return allocated;
