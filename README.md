@@ -1,11 +1,16 @@
 # virtualherejs
 
-VirtualHere library and cli interface for nodejs.
+[VirtualHere](https://virtualhere.com) nodejs library and cli interface.
+
+## Requirements
+
+* node 10 (tested)
+* a virtual usb host controller - vhci_hcd (linux)
 
 ## Help
 
 ```
-$ vh
+$ vh --help
 Usage example:
 vh allocate --hub vh-server-address --requirements type=phone
 vh release --hub vh-server-address
@@ -19,8 +24,6 @@ Options:
   --hub        Virtualhere hub address. <address>(:<port>)   [string] [required]
   --deviceMap  device map file                                          [string]
   --help       Show help                                               [boolean]
-
-Missing required argument: hub
 ```
 
 ## deviceMap file
