@@ -19,39 +19,46 @@ const files = {
     }
 };
 
-function createFolder(dest) {
-    const [_, bin, sub] = dest.split('/');
-    fs.mkdirSync(`./${bin}`);
-    fs.mkdirSync(`./${bin}/${sub}`);
+
+async function createFolder(dest) {
+    try {
+        fs.promises.mkdir(dest);
+    } catch (error) {
+        console.log(error)
+        if (error.code !== 'EEXIST') {
+            throw error;
+        }
+    }
 }
 
 const platform = os.platform();
 module.exports = files[platform];
 
-function download(url, dest, cb) {
+async function download(url, dest) {
     if (fs.existsSync(dest)) {
         console.log(`File exists already (${dest}), do nothing`);
-        cb();
-        return;
+        return Promise.resolve();
     }
-    createFolder(dest);
+    const [_, bin, sub] = dest.split('/');
+    await createFolder(bin);
+    await createFolder(`${bin}/${sub}`);
     console.log(`Downloading file: ${url}`);
     console.log(`Storing file: ${dest}`);
-    const file = fs.createWriteStream(dest);
-    https.get(url, (response) => {
-        response.pipe(file);
-    });
-    file.on('finish', () => {
-        file.close();
-    });
-    file.on('end', () => {
-        fs.chmod(dest, fs.constants.S_IXUSR, cb);
+
+    return new Promise((resolve, reject) => {
+        const file = fs.createWriteStream(dest);
+        https.get(url, (response) => response.pipe(file));
+        file.on('finish', () => file.close());
+        file.on('error', reject);
+        file.on('end', () => resolve());
     });
 }
 
 if (require.main === module) {
     const {source, target} = files[platform];
-    download(source, target, () => {
-        console.log('preinstall ready');
-    });
+    download(source, target)
+        .then(() => fs.promises.chmod(target, fs.constants.S_IXUSR))
+        .then(() => {
+            console.log('preinstall ready');
+        });
 }
