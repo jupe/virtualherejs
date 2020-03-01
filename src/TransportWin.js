@@ -1,4 +1,4 @@
-const debug = require('debug')('virtualhere:transport:transport');
+const debug = require('debug')('virtualhere:transportWin');
 const {PromiseSocket, TimeoutError} = require('promise-socket');
 const Transport = require('./Transport');
 
@@ -46,9 +46,9 @@ class TransportWin extends Transport {
         await this._rxSocket.end();
     }
 
-    get _rxPipe(){
+    get _rxPipe() {
         return this._rxSocket.socket;
     }
 }
 
- module.export = TransportWin;
+module.export = TransportWin;

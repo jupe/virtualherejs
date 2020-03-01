@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Transport = require('./Transport');
-const debug = require('debug')('virtualhere:transport:transport');
+const debug = require('debug')('virtualhere:transportUnix');
 
 
 class TransportUnix extends Transport {
