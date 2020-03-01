@@ -22,10 +22,10 @@ const files = {
 
 async function createFolder(dest) {
     try {
-        fs.promises.mkdir(dest);
+        await fs.promises.mkdir(dest);
     } catch (error) {
-        console.log(error)
         if (error.code !== 'EEXIST') {
+            console.log(error);
             throw error;
         }
     }
@@ -45,20 +45,26 @@ async function download(url, dest) {
     console.log(`Downloading file: ${url}`);
     console.log(`Storing file: ${dest}`);
 
-    return new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
         const file = fs.createWriteStream(dest);
         https.get(url, (response) => response.pipe(file));
-        file.on('finish', () => file.close());
-        file.on('error', reject);
-        file.on('end', () => resolve());
+        file.once('finish', () => file.close());
+        file.once('error', reject);
+        file.once('end', () => resolve());
     });
+    if (platform === 'darwin') {
+        console.error(`Please install VirtualHere client manually: ${dest}`)
+    }
+}
+
+async function main() {
+    const {source, target} = files[platform];
+    await download(source, target);
+    const perm = fs.constants.S_IRUSR | fs.constants.S_IXUSR | fs.constants.S_IRGRP;
+    await fs.promises.chmod(target, perm);
+    console.log('preinstall ready');
 }
 
 if (require.main === module) {
-    const {source, target} = files[platform];
-    download(source, target)
-        .then(() => fs.promises.chmod(target, fs.constants.S_IXUSR))
-        .then(() => {
-            console.log('preinstall ready');
-        });
+    (async () => await main())();
 }
