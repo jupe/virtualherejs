@@ -8,10 +8,10 @@ const Virtualhere = require('../src/Virtualhere');
         const hubs = await vh.listHub();
         console.log(hubs);
 
-        await vh.addHub(process.env.VIRTUALHERE_HUB);
+        await vh.addHub(process.env.VIRTUALHERE_HUB || '127.0.0.1');
         await vh.waitDevices();
         let devices = await vh.listDevices();
-        console.log(devices.map(obj => obj.name).join(', '));
+        console.log(devices.map((obj) => obj.name).join(', '));
 
         const {address} = devices[0];
 
@@ -20,14 +20,14 @@ const Virtualhere = require('../src/Virtualhere');
 
 
         await vh.autoUseDevice(address);
-        await new Promise(resolve => setTimeout(resolve, 20000));
+        await new Promise((resolve) => setTimeout(resolve, 20000));
         await vh.stopUsingAllLocal();
 
 
         await vh.removeHub(process.env.VIRTUALHERE_HUB);
         await vh.waitDevices();
         devices = await vh.listDevices();
-        console.log(devices.map(obj => obj.address).join(', '));
+        console.log(devices.map((obj) => obj.address).join(', '));
     } catch (e) {
         console.error(e);
     }

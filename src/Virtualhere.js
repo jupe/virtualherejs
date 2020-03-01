@@ -8,13 +8,26 @@ const merge = require('lodash/merge');
 const set = require('lodash/set');
 
 const Transport = require('./Transport');
+const TransportWin = require('./TransportWin');
+const TransportUnix = require('./TransportUnix');
 const Parsers = require('./Parsers');
+const {platform} = require('../postinstall');
 
 
 class Virtualhere {
-    constructor({transport = new Transport(), deviceMap = []}) {
+    constructor({transport = Virtualhere.CreateTransport(), deviceMap = []} = {}) {
         this._transport = transport;
         this._deviceMap = deviceMap;
+    }
+
+    static CreateTransport() {
+        /** Create Transport instance based on OS.
+         * @return {Transport} Returns Transport instance
+         */
+        if (platform === 'win32') {
+            return new TransportWin();
+        }
+        return new TransportUnix();
     }
 
     async getClientStatus() {

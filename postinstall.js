@@ -27,6 +27,7 @@ function createFolder(dest) {
 
 const platform = os.platform();
 module.exports = files[platform];
+module.exports.platform = platform;
 
 function download(url, dest, cb) {
     if (fs.existsSync(dest)) {
