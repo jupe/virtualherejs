@@ -11,7 +11,9 @@
     "coverage": "nyc report --reporter=text-lcov > coverage/lcov.info",
     "lint": "eslint test src",
     "lint-fix": "eslint --fix test src",
-    "postinstall": "node postinstall.js"
+    "postinstall": "node postinstall.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "virtualhere",
@@ -48,6 +50,8 @@
     "promise-retry": "^1.1.1",
     "promise-socket": "^6.0.3",
     "xml2js": "^0.4.23",
-    "yargs": "^15.3.1"
-  }
+    "yargs": "^15.3.1",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
