@@ -42,7 +42,7 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "camelcase": "^5.3.1",
-    "debug": "^4.1.1",
+    "debug": "^4.2.0",
     "invariant": "^2.2.4",
     "lodash": "^4.17.15",
     "promise-retry": "^1.1.1",
